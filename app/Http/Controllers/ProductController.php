@@ -76,7 +76,7 @@ class ProductController extends Controller
     }
 
 
-    public function save(Request $request)
+    public function save(Request $request): RedirectResponse
 
     {
 
@@ -84,13 +84,14 @@ class ProductController extends Controller
 
             "name" => "required",
 
-            "price" => "required"
+            "price" => "required|numeric|min:1"
 
         ]);
 
-        dd($request->all());
-
+        // debbug
+        // dd($request->all());
         //here will be the code to call the model and save it to the database
 
+        return redirect()->action([ProductController::class, 'index']);
     }
 }

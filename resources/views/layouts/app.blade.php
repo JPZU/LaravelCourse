@@ -45,6 +45,8 @@
 
                     <a class="nav-link active" href="{{ route('product.index') }}">Products</a>
 
+                    <a class="nav-link active" href="{{ route('product.create') }}">Create Product</a>
+
                 </div>
 
             </div>
