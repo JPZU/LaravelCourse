@@ -43,6 +43,8 @@
 
                     <a class="nav-link active" href="{{ route('home.contact') }}">Contact</a>
 
+                    <a class="nav-link active" href="{{ route('product.index') }}">Products</a>
+
                 </div>
 
             </div>
