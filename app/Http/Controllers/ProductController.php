@@ -8,23 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Product;
 
 
 class ProductController extends Controller
 
 {
-
-    public static $products = [
-
-        ["id" => "1", "name" => "TV", "description" => "Best TV", "price" => "1000"],
-
-        ["id" => "2", "name" => "iPhone", "description" => "Best iPhone", "price" => "1500"],
-
-        ["id" => "3", "name" => "Chromecast", "description" => "Best Chromecast", "price" => "200"],
-
-        ["id" => "4", "name" => "Glasses", "description" => "Best Glasses", "price" => "50"]
-
-    ];
 
 
     public function index(): View
@@ -37,7 +26,7 @@ class ProductController extends Controller
 
         $viewData["subtitle"] = "List of products";
 
-        $viewData["products"] = ProductController::$products;
+        $viewData["products"] = Product::all();
 
         return view('product.index')->with("viewData", $viewData);
     }
@@ -47,8 +36,7 @@ class ProductController extends Controller
 
     {
         $viewData = [];
-        if (array_key_exists($id - 1, ProductController::$products)) {
-            $product = ProductController::$products[$id - 1];
+        if ($product = Product::find($id)) {
 
             $viewData["title"] = $product["name"] . " - Online Store";
 
@@ -59,7 +47,7 @@ class ProductController extends Controller
             return view('product.show')->with("viewData", $viewData);
         } else {
 
-            return redirect()->action([HomeController::class, 'index']);
+            return redirect()->action([ProductController::class, 'index']);
         }
     }
 
@@ -88,9 +76,8 @@ class ProductController extends Controller
 
         ]);
 
-        // debbug
-        // dd($request->all());
-        //here will be the code to call the model and save it to the database
+
+        Product::create($request->only(["name", "price"]));
 
         return redirect()->action([ProductController::class, 'index']);
     }
