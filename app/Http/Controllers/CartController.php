@@ -30,7 +30,7 @@ class CartController extends Controller
         $viewData['products'] = $products;
         $viewData['cartProducts'] = $cartProducts;
 
-        return view('cart.index')->with('viewData', $viewData);
+        return View('cart.index')->with('viewData', $viewData);
     }
 
     public function add(string $id, Request $request): RedirectResponse
